@@ -1,3 +1,10 @@
+Source code in this repository is licensed under the MIT License,
+Copyright (c) 2023 c4ffein, unless stated otherwise at the beginning of the file.
+- The React logo (`logo-react.svg`) is Copyright (c) Meta Platforms, Inc. and affiliates.
+  - https://github.com/facebook/react/blob/493610f299ddf7d06e147e60dc4f2b97482982d2/fixtures/dom/public/react-logo.svg
+  - https://github.com/facebook/react/blob/main/LICENSE
+
+
 MIT License
 
 Copyright (c) 2023 c4ffein
