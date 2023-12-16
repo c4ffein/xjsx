@@ -1,0 +1,19 @@
+{
+  "name": "xjsx-react",
+  "version": "0.0.0",
+  "description": "Coming Soon (I guess)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/c4ffein/xjsx.git"
+  },
+  "author": "c4ffein",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/c4ffein/xjsx/issues"
+  },
+  "homepage": "https://github.com/c4ffein/xjsx#readme"
+}
