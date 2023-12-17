@@ -15,7 +15,7 @@ const { a, div, span } = tagFactory;
 ```
 
 ### Make it work with [Tailwind CSS](https://tailwindcss.com)
-First, ensure that [Tailwind CSS has been set up](https://tailwindcss.com/docs/guides/vite).
+First, ensure that [Tailwind CSS has been set up](https://tailwindcss.com/docs/guides/vite).  
 Then, in `tailwind.config.js`:
 ```JavaScript
 import { tailwindExtract } from './xjsx'
