@@ -33,6 +33,7 @@ export default {
 This has to be done as:
 - [Tailwind CSS](https://tailwindcss.com) uses [PostCSS](https://postcss.org) to curate classes, [only including the used classes to reduce bundle size](https://tailwindcss.com/docs/content-configuration#class-detection-in-depth).
 - When using [xjsx](https://github.com/c4ffein/xjsx) you don't necessarily include the [Tailwind](https://tailwindcss.com) classes that you will use in your source files.
+
 So, through `tailwindExtract`, we just use a regex to split what could be JavaScript identifiers, and apply the same transformation into what could be a [Tailwind](https://tailwindcss.com) class to re-expose it to [PostCSS](https://postcss.org), so it is included if it matches a [Tailwind](https://tailwindcss.com) class.
 
 ### Make it work with [Bootstrap](https://getbootstrap.com)
