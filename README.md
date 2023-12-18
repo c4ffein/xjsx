@@ -1,19 +1,10 @@
 # xjsx
-A new way to generate [React](https://react.dev/) [elements](https://react.dev/reference/react/createElement) without [jsx](https://wikipedia.org/wiki/JSX_(JavaScript)), inspired by [pug](https://pugjs.org) syntax, compatible with [Tailwind CSS](https://tailwindcss.com), actually pure JavaScript.
+A new way to generate [React](https://react.dev/) [elements](https://react.dev/reference/react/createElement) without [jsx](https://react.dev/learn/writing-markup-with-jsx), inspired by [pug](https://pugjs.org) syntax, compatible with [Tailwind CSS](https://tailwindcss.com), actually pure JavaScript.
 
 ![xjsx demo screen](/assets/screen-xjsx-react-light.png?raw=true#gh-light-mode-only)
 ![xjsx demo screen](/assets/screen-xjsx-react-dark.png?raw=true#gh-dark-mode-only)
 
-&rarr; ***[Scroll this](#react-jsx-syntax-example)*** &rarr;
-
-<table>
-<tr>
-<th><h4>React JSX syntax example</h4></th>
-<th><h4>xjsx syntax example</h4></th>
-</tr>
-<tr>
-<td>
-
+#### [JSX](https://react.dev/learn/writing-markup-with-jsx) syntax example
 ```JSX
 import { useState } from 'react';
 import reactLogo from './assets/logo-react.svg';
@@ -40,9 +31,7 @@ export default function JSX() {
 }
 ```
 
-</td>
-<td>
-
+#### [xjsx](https://github.com/c4ffein/xjsx) syntax example
 ```JavaScript
 import { useState } from 'react';
 import xjsxLogo from './assets/logo-xjsx.svg';
@@ -65,10 +54,6 @@ export default function XJSX() {
   );
 }
 ```
-
-</td>
-</tr>
-</table>
 
 ## How to use
 Right now, you may just copy `xjsx.js` into your React project to test it.
