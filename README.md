@@ -11,6 +11,7 @@ A new way to generate [React](https://react.dev/) [elements](https://react.dev/r
 </tr>
 <tr>
 <td>
+
 ```JSX
 import { useState } from 'react';
 import reactLogo from './assets/logo-react.svg';
@@ -36,8 +37,10 @@ export default function JSX() {
   );
 }
 ```
+
 </td>
 <td>
+
 ```JavaScript
 import { useState } from 'react';
 import xjsxLogo from './assets/logo-xjsx.svg';
@@ -60,6 +63,7 @@ export default function XJSX() {
   );
 }
 ```
+
 </td>
 </tr>
 </table>
