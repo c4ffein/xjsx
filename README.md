@@ -4,12 +4,12 @@ A new way to generate [React](https://react.dev/) [elements](https://react.dev/r
 ![xjsx demo screen](/assets/screen-xjsx-react-light.png?raw=true#gh-light-mode-only)
 ![xjsx demo screen](/assets/screen-xjsx-react-dark.png?raw=true#gh-dark-mode-only)
 
-&rarr; ***Scroll this*** &rarr;
+&rarr; ***[Scroll this](#react-jsx-syntax-example)*** &rarr;
 
 <table>
 <tr>
-<th><h4>React JSX syntax</h4></th>
-<th><h4>xjsx syntax</h4></th>
+<th><h4>React JSX syntax example</h4></th>
+<th><h4>xjsx syntax example</h4></th>
 </tr>
 <tr>
 <td>
