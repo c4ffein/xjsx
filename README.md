@@ -1,8 +1,68 @@
 # xjsx
-Coming Soon (I guess)
+A new way to generate [React](https://react.dev/) [elements](https://react.dev/reference/react/createElement) without [jsx](https://wikipedia.org/wiki/JSX_(JavaScript)), inspired by [pug](https://pugjs.org) syntax, compatible with [Tailwind CSS](https://tailwindcss.com), actually pure JavaScript.
 
 ![xjsx demo screen](/assets/screen-xjsx-react-light.png?raw=true#gh-light-mode-only)
 ![xjsx demo screen](/assets/screen-xjsx-react-dark.png?raw=true#gh-dark-mode-only)
+
+<table>
+<tr>
+<th>React JSX syntax</th>
+<th>js-without-x</th>
+</tr>
+<tr>
+<td>
+```JSX
+import { useState } from 'react';
+import reactLogo from './assets/logo-react.svg';
+
+export default function JSX() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div className="p-8">
+      <h1 className="text-3xl font-bold text-slate-600 mb-4">
+        Hello world from <span className="text-react">JSX</span>
+      </h1>
+      <button className="mb-4 custom-button hover:border-react" onClick={() => setCount((count) => count + 1)}>
+        Clicked : {count}
+      </button>
+      <div className="flex items-center gap-2.5">
+        <a href="https://react.dev/learn/writing-markup-with-jsx" target="_blank" rel="noreferrer">
+          <img className="h-8 w-8" src={reactLogo} alt="React logo"></img>
+        </a>
+        <p className="text-black dark:text-white">Click on the React logo to read the React JSX documentation</p>
+      </div>
+    </div>
+  );
+}
+```
+</td>
+<td>
+```JavaScript
+import { useState } from 'react';
+import xjsxLogo from './assets/logo-xjsx.svg';
+import { _, tagFactory } from '../xjsx';
+
+const { a, img, h1, span, button, p } = tagFactory;
+
+export default function XJSX() {
+  const [count, setCount] = useState(0);
+
+  return _.p8(
+    h1.text3xl.fontBold.textSlate500.mb4('Hello world from ', span.textReact`xjsx`),
+    button.mb4.customButton.hover$borderReact({ onClick: () => setCount((count) => count + 1) })`Clicked : ${count}`,
+    _.flex.itemsCenter.gap2$5(
+      a({ href: 'https://github.com/c4ffein/xjsx', target: '_blank', rel: 'noreferrer' })(
+        img.h8.w8({ src: xjsxLogo, alt: 'xjsx logo' })(),
+      ),
+      p.textBlack.dark$textWhite`Click on the xjsx logo to read the xjsx documentation`,
+    ),
+  );
+}
+```
+</td>
+</tr>
+</table>
 
 ## How to use
 Right now, you may just copy `xjsx.js` into your React project to test it.
