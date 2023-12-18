@@ -112,7 +112,11 @@ As [Bootstrap](https://getbootstrap.com) doesn't use [PostCSS](https://postcss.o
 Numbers will be preceded by a `-`, unless the previous char is already a number, `$` or `_`.
 ### What about anything else that can't be covered?
 You may mix [xjsx](https://github.com/c4ffein/xjsx) [Proxy tricks](#tricks) and regular `className` usage, e.g.
-`const App = () => _.hFull.flex.itemsCenter({ className: 'w-screen' })(_.w1$2(JSX()), _.w1$2(XJSX()));`
+```JavaScript
+const App = () => _.hFull.flex.itemsCenter({ className: 'w-screen' })(
+  _.w1$2(JSX()), _.w1$2(XJSX())
+);
+```
 You may also use regular [Tailwind](https://tailwindcss.com) classes in your own CSS, regular [PostCSS](https://postcss.org) treatment isn't broken.
 
 ## Compatibility
