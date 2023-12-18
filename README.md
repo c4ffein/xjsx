@@ -8,8 +8,8 @@ A new way to generate [React](https://react.dev/) [elements](https://react.dev/r
 
 <table>
 <tr>
-<th>React JSX syntax</th>
-<th>js-without-x</th>
+<th><h4>React JSX syntax</h4></th>
+<th><h4>xjsx syntax</h4></th>
 </tr>
 <tr>
 <td>
