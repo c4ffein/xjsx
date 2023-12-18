@@ -13,7 +13,7 @@ const toTailwind = (className) => {
         return lastIsDigit || last === '_' || last === '$' ? c : `-${c}`;
       }
       curIsDigit = false;
-      return c === '_' ? '/' : c === '$' ? (lastIsDigit ? '.' : ':') : 'A' <= c && c <= 'Z' ? `-${c.toLowerCase()}` : c;
+      return c === '_' ? '.' : c === '$' ? (lastIsDigit ? '/' : ':') : 'A' <= c && c <= 'Z' ? `-${c.toLowerCase()}` : c;
     })
     .join('');
 };
