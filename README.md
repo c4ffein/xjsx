@@ -61,11 +61,23 @@ export default function XJSX() {
 - [pug](https://pugjs.org) works very well with [Tailwind CSS](https://tailwindcss.com) as it lets you easily chain CSS classes through its syntax, and even more with template-based frameworks that let you put logic in it.
 - We should have a way to benefit from a [pug](https://pugjs.org)-like syntax to use [Tailwind](https://tailwindcss.com) classes in [React](https://react.dev/) without compromising on the ability to use all JavaScript.
 
+## How does it actually work
+- Pure JavaScript, so it won't introduce weird complexity in your build system (as most things shouldn't).
+- Voodoo logic with [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) objects, so that you can chain CSS classes that will automatically be added to the [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) CSS classes one after another, and will generate a [React element](https://react.dev/reference/react/createElement) in the end. In detail:
+  - `_` and any variable you can get from the `tagFactory` are [Proxies](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy).
+  - Getting any attribute (with the Javascript `.` syntax) will generate a new [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) that will include this attribute in it's own list of CSS classes, in addition to all previously added CSS classes.
+    - Those attributes are modified before they are added to the list of CSS classes. As we can't use `-`, `.`, `:` or `/` in JavaScript identifiers, we transfom e.g. `textRed600` into `text-red-600`. This lets you use CSS classes from [Tailwind](https://tailwindcss.com), [Bootstrap](https://getbootstrap.com), or even your own `hyphen-separated` CSS classes as camel case, which is more consistent with JavaScript.
+    - [More info on className transformation is provided later.](#css-class-names)
+    - [More setup is needed for Tailwind.](#make-it-work-with-tailwind-css)
+  - If you call that [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy), the behaviour now depends on the arguments:
+    - If the argument is an object that is neither an [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) or a [React Element](https://react.dev/reference/react/isValidElement), we consider that this object represents HTML attributes, and so you can use it to set `href`, `onclick` and so on, and a new [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) will be returned.
+    - Anything else will return the calling of [React](https://react.dev/) [createElement](https://react.dev/reference/react/createElement) with the adequate `props` (from the [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) chain) and the arguments as `...children`. From the [documentation](https://react.dev/reference/react/createElement#parameters) itself: `Zero or more child nodes. They can be any React nodes, including React elements, strings, numbers, portals, empty nodes (null, undefined, true, and false), and arrays of React nodes.`
+
 ## How to use
 Right now, you may just copy `xjsx.js` into your [React](https://react.dev/) project to test it.
 
 ### How to import
-You may import `tagFactory` to get the [xjsx](https://github.com/c4ffein/xjsx) builder for any html tag you want, or the short `_` for `div`.
+You may import `tagFactory` to get the [xjsx](https://github.com/c4ffein/xjsx) builder for any HTML tag you want, or the short `_` for `div`.
 ```JavaScript
 import { tagFactory, _ } from '/xjsx.js'
 const { a, div, span } = tagFactory;
@@ -93,24 +105,16 @@ This has to be done as:
 
 So, through `tailwindExtract`, we just use a regex to split what could be JavaScript identifiers, and apply the same transformation into what could be a [Tailwind](https://tailwindcss.com) class to re-expose it to [PostCSS](https://postcss.org), so it is included if it matches a [Tailwind](https://tailwindcss.com) class.
 
-### Make it work with [Bootstrap](https://getbootstrap.com)
-As [Bootstrap](https://getbootstrap.com) doesn't use [PostCSS](https://postcss.org), it should work as-is.
-
-## How does it actually work
-- Pure JavaScript, so it won't introduce weird complexity in your build system (as most things shouldn't).
-- Voodoo logic with [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) objects, so that you can chain classes that will automatically be added to the Proxy CSS Classes one after another, and will generate a [React element](https://react.dev/reference/react/createElement) in the end.
-- Those attributes are transformed as we can't use `-`, `.`, `:` or `/` in JavaScript identifiers, so we transfom e.g. `textRed600` into `text-red-600`.
-- We feed the correct classes to [Tailwind](https://tailwindcss.com) as it [just checks which strings are present in your files](https://tailwindcss.com/docs/content-configuration#class-detection-in-depth), as it was already explained in [Make it work with Tailwind CSS](#make-it-work-with-tailwind-css)
-
 ## Tricks
-### What about characters used in [Tailwind](https://tailwindcss.com) classes that are not allowed in JavaScript identifiers?
-- *`-`* Just capitalize the next letter, or let the number as-is. Also works for classes starting with `-`.
-- *`.`* Just replace the char with a `_`, will be transformed to a `.`.
-- *`:`* Just replace that char with a `$`, will be transformed to `:` if the previous char is not a digit.
-- *`/`* Just replace that char with a `$`, will be transformed to a `/` if the previous char is a digit.
-### What about numbers?
+### CSS class names
+#### What about characters used in [Tailwind](https://tailwindcss.com) classes that are not allowed in JavaScript identifiers?
+- **`-`** Just capitalize the next letter, or let the number as-is. Also works for classes starting with `-`.
+- **`.`** Just replace the char with a `_`, will be transformed to a `.`.
+- **`:`** Just replace that char with a `$`, will be transformed to `:` if the previous char is not a digit.
+- **`/`** Just replace that char with a `$`, will be transformed to a `/` if the previous char is a digit.
+#### What about numbers?
 Numbers will be preceded by a `-`, unless the previous char is already a number, `$` or `_`.
-### What about anything else that can't be covered?
+#### What about anything else that can't be covered?
 You may mix [xjsx](https://github.com/c4ffein/xjsx) [Proxy tricks](#tricks) and regular `className` usage, e.g.
 ```JavaScript
 const App = () => _.hFull.flex.itemsCenter({ className: 'w-screen' })(
