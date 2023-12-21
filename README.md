@@ -55,11 +55,13 @@ export default function XJSX() {
 }
 ```
 
+
 ## Opinionated
 - [JSX](https://react.dev/learn/writing-markup-with-jsx) is very nice to put logic in your [React](https://react.dev/) (conditionals, list rendering...) as you can directly use JavaScript for it.
 - [Tailwind CSS](https://tailwindcss.com) doesn't work well with [JSX](https://react.dev/learn/writing-markup-with-jsx) as it is class-based - not only do you have to close any tag, but also use that repetitive [className](https://react.dev/reference/react-dom/components/common#applying-css-styles).
 - [pug](https://pugjs.org) works very well with [Tailwind CSS](https://tailwindcss.com) as it lets you easily chain CSS classes through its syntax, and even more with template-based frameworks that let you put logic in it.
 - We should have a way to benefit from a [pug](https://pugjs.org)-like syntax to use [Tailwind](https://tailwindcss.com) classes in [React](https://react.dev/) without compromising on the ability to use all JavaScript.
+
 
 ## How does it actually work
 - Pure JavaScript, so it won't introduce weird complexity in your build system (as most things shouldn't).
@@ -73,6 +75,7 @@ export default function XJSX() {
 - If you call that [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy), the behaviour now depends on the arguments:
   - If the argument is an object that is neither an [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) or a [React Element](https://react.dev/reference/react/isValidElement), we consider that this object represents HTML attributes, and so you can use it to set `href`, `onclick` and so on, and a new [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) will be returned.
   - Anything else will return the calling of [React](https://react.dev/) [createElement](https://react.dev/reference/react/createElement) with the adequate `props` (from the [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) chain) and the arguments as `...children`. From the [documentation](https://react.dev/reference/react/createElement#parameters) itself: `Zero or more child nodes. They can be any React nodes, including React elements, strings, numbers, portals, empty nodes (null, undefined, true, and false), and arrays of React nodes.`
+  - See the [React Element or not](#react-element-or-not) section for examples.
 
 ## How to use
 Right now, you may just copy `xjsx.js` into your [React](https://react.dev/) project to test it.
@@ -106,6 +109,7 @@ This has to be done as:
 
 So, through `tailwindExtract`, we just use a regex to split what could be JavaScript identifiers, and apply the same transformation into what could be a [Tailwind](https://tailwindcss.com) class to re-expose it to [PostCSS](https://postcss.org), so it is included if it matches a [Tailwind](https://tailwindcss.com) class.
 
+
 ## Tricks
 ### CSS class names
 #### What about characters used in [Tailwind](https://tailwindcss.com) classes that are not allowed in JavaScript identifiers?
@@ -123,6 +127,22 @@ const App = () => _.hFull.flex.itemsCenter({ className: 'w-screen' })(
 );
 ```
 You may also use regular [Tailwind](https://tailwindcss.com) classes in your own CSS, regular [PostCSS](https://postcss.org) treatment isn't broken.
+### [React Element](https://react.dev/reference/react/isValidElement) or not
+*Following [How does it actually work](#how-does-it-actually-work), which of these are [React Elements](https://react.dev/reference/react/isValidElement)?  
+Otherwise they are [xjsx](https://github.com/c4ffein/xjsx) [Proxy objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)*.  
+  
+:heavy_multiplication_x:  `` _.h4.w4.bgRed600 ``  
+:heavy_check_mark:  `` _.h4.w4.bgRed600() ``  
+:heavy_check_mark:  `` _`Hello` ``  
+:heavy_check_mark:  `` _.textRed600('In red and ', _textBlue600`in blue`) ``  
+:heavy_multiplication_x:  `` _.h4.w4.bgRed600({}) ``  
+:heavy_multiplication_x:  `` _.h4.w4.bgRed600({whatever: 'whatever'}) ``  
+:heavy_check_mark:  `` _.h4.w4.bgRed600({whatever: 'whatever'})() ``  
+:heavy_check_mark:  `` _.h4.w4.bgRed600({whatever: 'whatever'})`with some text` ``  
+:heavy_check_mark:  `` _.flex([_({key: 1})`a`, _({key: 2})`b`]) `` 
+  
+This may seem uncomfortable at first, but the thing is that all this is pure JavaScript and feels kinda like [pug](https://pugjs.org). But where you would still be able to use [map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map), [IIFE](https://developer.mozilla.org/en-US/docs/Glossary/IIFE) with [Arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions), and everything else (not that you should).
+
 
 ## Compatibility
 The good thing is that there are no dependencies besides [React](https://react.dev/).  
