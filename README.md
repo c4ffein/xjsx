@@ -1,4 +1,5 @@
 # xjsx
+
 A new way to generate [React](https://react.dev/) [elements](https://react.dev/reference/react/createElement) without [JSX](https://react.dev/learn/writing-markup-with-jsx), inspired by [pug](https://pugjs.org) syntax, compatible with [Tailwind CSS](https://tailwindcss.com), actually pure JavaScript.
 
 ![xjsx demo screen](/assets/screen-xjsx-react-light.png?raw=true#gh-light-mode-only)
@@ -76,6 +77,7 @@ export default function XJSX() {
   - If the argument is an object that is neither an [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) or a [React Element](https://react.dev/reference/react/isValidElement), we consider that this object represents HTML attributes, and so you can use it to set `href`, `onclick` and so on, and a new [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) will be returned.
   - Anything else will return the calling of [React](https://react.dev/) [createElement](https://react.dev/reference/react/createElement) with the adequate `props` (from the [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) chain) and the arguments as `...children`. From the [documentation](https://react.dev/reference/react/createElement#parameters) itself: `Zero or more child nodes. They can be any React nodes, including React elements, strings, numbers, portals, empty nodes (null, undefined, true, and false), and arrays of React nodes.`
   - See the [React Element or not](#react-element-or-not) section for examples.
+
 
 ## How to use
 Right now, you may just copy `xjsx.js` into your [React](https://react.dev/) project to test it.

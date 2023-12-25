@@ -30,6 +30,12 @@
     "vite": "^5.0.8",
     "vite-plugin-eslint": "^1.8.1"
   },
+  "postcss": {
+    "plugins": {
+      "tailwindcss": {},
+      "autoprefixer": {}
+    }
+  },
   "prettier": {
     "trailingComma": "all",
     "tabWidth": 2,
