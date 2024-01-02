@@ -12,7 +12,7 @@ export default function XJSX() {
     button.mb4.customButton({ onClick: () => setCount((count) => count + 1) })`Clicked : ${count}`,
     _.flex.itemsCenter.gap2_5(
       a({ href: 'https://github.com/c4ffein/xjsx', target: '_blank', rel: 'noreferrer' })(
-        img.h8.w8({ src: xjsxLogo, alt: 'xjsx logo' })(),
+        img.minH8.minW8({ src: xjsxLogo, alt: 'xjsx logo' })(),
       ),
       p.textBlack.dark$textWhite`Click on the xjsx logo to read the xjsx documentation`,
     ),

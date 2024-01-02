@@ -14,7 +14,7 @@ export default function JSX() {
       </button>
       <div className="flex items-center gap-2.5">
         <a href="https://react.dev/learn/writing-markup-with-jsx" target="_blank" rel="noreferrer">
-          <img className="h-8 w-8" src={reactLogo} alt="React logo"></img>
+          <img className="min-h-8 min-w-8" src={reactLogo} alt="React logo"></img>
         </a>
         <p className="text-black dark:text-white">Click on the React logo to read the React JSX documentation</p>
       </div>
