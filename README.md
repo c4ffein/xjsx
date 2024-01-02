@@ -145,6 +145,9 @@ Otherwise they are [xjsx](https://github.com/c4ffein/xjsx) [Proxy objects](https
   
 This may seem uncomfortable at first, but the thing is that all this is pure JavaScript and feels kinda like [pug](https://pugjs.org). But where you would still be able to use [map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map), [IIFE](https://developer.mozilla.org/en-US/docs/Glossary/IIFE) with [Arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions), and everything else (not that you should).
 
+#### Error diagnosis
+- `Warning: Functions are not valid as a React child. This may happen if you return a Component instead of <Component /> from render. Or maybe you meant to call this function rather than return it.`: You probably forgot to make a final call.
+- `TypeError: Component({ ...xxx }) is not a function. (In 'Component({ ...xxx })()', 'Component({ ...xxx })' is an instance of Object)`: This is probably the opposite, you tried to treat a [React Element](https://react.dev/reference/react/isValidElement) as a [xjsx](https://github.com/c4ffein/xjsx) [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy). Just use `Component({ ...xxx })` instead. [You can still pass children through props if needed](https://react.dev/learn/passing-props-to-a-component#passing-jsx-as-children).
 
 ## Compatibility
 The good thing is that there are no dependencies besides [React](https://react.dev/).  

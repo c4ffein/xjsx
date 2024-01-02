@@ -35,7 +35,16 @@ class Callable extends Function {
   _call(...args) {
     return typeof args[0] === 'object' && !Array.isArray(args[0]) && !isValidElement(args[0])
       ? new Callable(this.tag, [...this.classes], { ...this.attributes, ...args[0] })
-      : createElement(this.tag, { ...this.attributes, className: this.classes.map(toTailwind).join(' ') }, ...args);
+      : createElement(
+          this.tag,
+          {
+            ...this.attributes,
+            className: this.attributes.className
+              ? `${this.classes.map(toTailwind).join(' ')} ${this.attributes.className}`
+              : this.classes.map(toTailwind).join(' '),
+          },
+          ...args,
+        );
   }
 }
 

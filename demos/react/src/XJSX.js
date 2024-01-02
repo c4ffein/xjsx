@@ -9,7 +9,7 @@ export default function XJSX() {
 
   return _.p8(
     h1.text3xl.fontBold.textSlate500.mb4('Hello world from ', span.textReact`xjsx`),
-    button.mb4.customButton.hover$borderReact({ onClick: () => setCount((count) => count + 1) })`Clicked : ${count}`,
+    button.mb4.customButton({ onClick: () => setCount((count) => count + 1) })`Clicked : ${count}`,
     _.flex.itemsCenter.gap2_5(
       a({ href: 'https://github.com/c4ffein/xjsx', target: '_blank', rel: 'noreferrer' })(
         img.h8.w8({ src: xjsxLogo, alt: 'xjsx logo' })(),

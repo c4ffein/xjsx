@@ -9,7 +9,7 @@ export default function JSX() {
       <h1 className="text-3xl font-bold text-slate-600 mb-4">
         Hello world from <span className="text-react">JSX</span>
       </h1>
-      <button className="mb-4 custom-button hover:border-react" onClick={() => setCount((count) => count + 1)}>
+      <button className="mb-4 custom-button" onClick={() => setCount((count) => count + 1)}>
         Clicked : {count}
       </button>
       <div className="flex items-center gap-2.5">
