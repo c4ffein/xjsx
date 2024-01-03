@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import xjsxLogo from './assets/logo-xjsx.svg';
-import { _, tagFactory } from '../xjsx';
+import { _, tagFactory } from '../libs/xjsx';
 
 const { a, img, h1, span, button, p } = tagFactory;
 

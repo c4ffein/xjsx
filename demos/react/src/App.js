@@ -1,6 +1,6 @@
 import { useState, createRef } from 'react';
 
-import { _, tagFactory } from '../xjsx';
+import { _, tagFactory } from '../libs/xjsx';
 import JSX from './JSX.jsx';
 import XJSX from './XJSX.js';
 import SplitCode from './SplitCode';

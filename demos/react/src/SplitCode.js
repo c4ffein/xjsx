@@ -1,4 +1,4 @@
-import { _, tagFactory } from '../xjsx';
+import { _, tagFactory } from '../libs/xjsx';
 import JSXCode from './assets/JSXCode.js';
 import XJSXCode from './assets/XJSXCode.js';
 import Code from './Code';

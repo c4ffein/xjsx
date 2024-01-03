@@ -1,4 +1,4 @@
-import { tailwindExtract } from './xjsx';
+import { tailwindExtract } from './libs/xjsx';
 
 /** @type {import('tailwindcss').Config} */
 export default {
