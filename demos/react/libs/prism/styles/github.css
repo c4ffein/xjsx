@@ -1,0 +1,14 @@
+pre>code, pre>code span                   { text-shadow: 0px 0px 16px #ffffff; }
+.token.keyword                                               { color: #cf222e; }
+.token.string                                                { color: #0a3069; }
+.token.function                                              { color: #6639ba; }
+.token.constant                                              { color: #0550ae; }
+.token.number                                                { color: #0550ae; }
+.token.operator                                              { color: #0550ae; }
+.token.tag                                                   { color: #11632a; }
+.token.tag>.token.punctuation                                { color: #0550ae; }
+.token.attr-name                                             { color: #0550ae; }
+.token.attr-value                                            { color: #0a3069; }
+.token.attr-value>.token.punctuation.attr-equals             { color: #0550ae; }
+.token.script.language-javascript                            { color: #000000; }
+.token.script.language-javascript>.token.script-punctuation  { color: #0550ae; }

@@ -1,0 +1,14 @@
+pre>code, pre>code span                   { text-shadow: 0px 0px 16px #000000; }
+.token.keyword                                               { color: #ff7b72; }
+.token.string                                                { color: #7ed6ff; }
+.token.function                                              { color: #d2a8ff; }
+.token.constant                                              { color: #79c0ff; }
+.token.number                                                { color: #79c0ff; }
+.token.operator                                              { color: #79c0ff; }
+.token.tag                                                   { color: #7ee787; }
+.token.tag>.token.punctuation                                { color: #79c0ff; }
+.token.attr-name                                             { color: #79c0ff; }
+.token.attr-value                                            { color: #7ed6ff; }
+.token.attr-value>.token.punctuation.attr-equals             { color: #79c0ff; }
+.token.script.language-javascript                            { color: #ffffff; }
+.token.script.language-javascript>.token.script-punctuation  { color: #79c0ff; }
