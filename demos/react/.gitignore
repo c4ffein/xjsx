@@ -1,0 +1,9 @@
+# Builds / deps
+node_modules
+dist
+
+# OS
+.DS_Store
+
+# IDE
+*.sw?
