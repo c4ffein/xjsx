@@ -7,7 +7,7 @@ import SplitCode from './SplitCode';
 
 import xjsxLogo from './assets/logo-xjsx.svg';
 
-const { a, button, h1, img, span } = tagFactory;
+const { a, button, h1, h2, img, span } = tagFactory;
 const s = span;
 
 const App = () => {
@@ -22,19 +22,27 @@ const App = () => {
       : null;
 
   return _.minHFull.flex.flexCol.justifyAround(
-    a.my2.block.flex.gap1.itemsCenter.mxAuto.text3xl.fontBold({
+    a.flex.flexCol.mx5({
       href: 'https://github.com/c4ffein/xjsx',
       target: '_blank',
       rel: 'noreferrer',
     })(
-      img.h8.w8.mr1({ src: xjsxLogo, alt: 'xjsx logo' })(),
-      h1.inlineBlock({ style: { transform: 'translateY(-9%)' } })`xjsx`,
-      h1.inlineBlock({ style: { transform: 'translateY(-9%)' } })(
-        s.textReact`(`,
-        s.textSlate500`demo website`,
-        s.textReact`)`,
+      _.my2.block.flex.gap1.itemsCenter.mxAuto.text3xl.fontBold(
+        img.h8.w8.mr1({ src: xjsxLogo, alt: 'xjsx logo' })(),
+        h1.inlineBlock({ style: { transform: 'translateY(-9%)' } })`xjsx`,
+        h1.inlineBlock({ style: { transform: 'translateY(-9%)' } })(
+          s.textReact`(`,
+          s.textSlate500`demo website`,
+          s.textReact`)`,
+        ),
+      ),
+      h2.mxAuto.textXl.textSlate500.hover$textReact.transitionColors(
+        `A `,
+        s.decorationBlack.dark$decorationWhite.underline.underlineOffset2.decoration2`new way`,
+        ` to generate React elements without JSX`,
       ),
     ),
+
     _.flex.itemsCenter(_.w1$2(JSX()), _.w1$2(XJSX())),
     _.flex.gap8.justifyCenter(
       a.mb8.customButton({ href: 'https://github.com/c4ffein/xjsx' })`Read the doc`,
