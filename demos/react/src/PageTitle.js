@@ -31,10 +31,11 @@ export default () =>
     a.absolute.Z10.top0.invisible.flex.flexCol(
       _.flex.flexCol.selfCenter.mt2.pointerEventsAuto(
         _.block.flex.gap1.itemsCenter.mxAuto.text3xl.fontBold.relative(
-          svg.visible.h8.w8.mr1({
+          svg.visible.overflowVisible.h8.w8.mr1({
             width: '100%',
             height: '100%',
-            viewBox: '0 0 2048 2048',
+            // -20 next line is a Safari fix, as 1 px on the left kept the color without hover
+            viewBox: '-20 0 2048 2048', // Only happened on specific resolutions
             version: '1.1',
             xmlns: 'http://www.w3.org/2000/svg',
             xmlnsXlink: 'http://www.w3.org/1999/xlink',
