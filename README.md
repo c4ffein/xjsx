@@ -94,12 +94,12 @@ You may also use `elementFactory` to convert [React Elements](https://react.dev/
 
 ```JavaScript
 import CodeRE from './Code';
-const { a, button, img, h3, Code } = elementFactory({ Code: CodeRE });
+const { a, button, Code } = elementFactory({ Code: CodeRE });
 ```
 
 And use those as any other [xjsx](https://github.com/c4ffein/xjsx) elements.
 ```JavaScript
-_flex(
+_.flex(
   Code({ jsCode: codeStringA }),
   Code({ jsCode: codeStringB }),
 );
