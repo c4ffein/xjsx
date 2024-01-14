@@ -4,6 +4,7 @@ A new way to generate [React](https://react.dev/) [elements](https://react.dev/r
 
 [![xjsx demo screen](/assets/screen-xjsx-react-light.png?raw=true)](https://xjsx.dev#gh-light-mode-only)
 [![xjsx demo screen](/assets/screen-xjsx-react-dark.png?raw=true)](https://xjsx.dev#gh-dark-mode-only)
+*See live at [xjsx.dev](https://xjsx.dev)*
 
 #### [JSX](https://react.dev/learn/writing-markup-with-jsx) syntax example
 ```JSX
