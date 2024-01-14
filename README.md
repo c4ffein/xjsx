@@ -36,9 +36,9 @@ export default function JSX() {
 ```JavaScript
 import { useState } from 'react';
 import xjsxLogo from './assets/logo-xjsx.svg';
-import { _, tagFactory } from '../xjsx';
+import { _, elementFactory } from '../xjsx';
 
-const { a, img, h1, span, button, p } = tagFactory;
+const { a, img, h1, span, button, p } = elementFactory;
 
 export default function XJSX() {
   const [count, setCount] = useState(0);
@@ -48,7 +48,7 @@ export default function XJSX() {
     button.mb4.customButton.hover$borderReact({ onClick: () => setCount((count) => count + 1) })`Clicked : ${count}`,
     _.flex.itemsCenter.gap2_5(
       a({ href: 'https://github.com/c4ffein/xjsx', target: '_blank', rel: 'noreferrer' })(
-        img.h8.w8({ src: xjsxLogo, alt: 'xjsx logo' })(),
+        img.h8.w8({ src: xjsxLogo, alt: 'xjsx logo' }),
       ),
       p.textBlack.dark$textWhite`Click on the xjsx logo to read the xjsx documentation`,
     ),
@@ -68,7 +68,7 @@ export default function XJSX() {
 - Pure JavaScript, so it won't introduce weird complexity in your build system (as most things shouldn't).
 - Voodoo logic with [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) objects, so that you can chain CSS classes that will automatically be added to the [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) CSS classes one after another, and will generate a [React element](https://react.dev/reference/react/createElement) in the end.
 ### In detail
-- `_` and any variable you can get from the `tagFactory` are [Proxies](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy).
+- `_` and any variable you can get from the `elementFactory` are [Proxies](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy).
 - Getting any attribute (with the Javascript `.` syntax) will generate a new [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) that will include this attribute in it's own list of CSS classes, in addition to all previously added CSS classes.
   - Those attributes are modified before they are added to the list of CSS classes. As we can't use `-`, `.`, `:` or `/` in JavaScript identifiers, we transfom e.g. `textRed600` into `text-red-600`. This lets you use CSS classes from [Tailwind](https://tailwindcss.com), [Bootstrap](https://getbootstrap.com), or even your own `hyphen-separated` CSS classes as camel case, which is more consistent with JavaScript.
   - [More info on className transformation is provided later.](#css-class-names)
@@ -76,19 +76,34 @@ export default function XJSX() {
 - If you call that [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy), the behaviour now depends on the arguments:
   - If the argument is an object that is neither an [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) or a [React Element](https://react.dev/reference/react/isValidElement), we consider that this object represents HTML attributes, and so you can use it to set `href`, `onclick` and so on, and a new [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) will be returned.
   - Anything else will return the calling of [React](https://react.dev/) [createElement](https://react.dev/reference/react/createElement) with the adequate `props` (from the [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) chain) and the arguments as `...children`. From the [documentation](https://react.dev/reference/react/createElement#parameters) itself: `Zero or more child nodes. They can be any React nodes, including React elements, strings, numbers, portals, empty nodes (null, undefined, true, and false), and arrays of React nodes.`
-  - See the [React Element or not](#react-element-or-not) section for examples.
+  - See the [How to use React Elements](#how-to-use-react-elements) section for more info and the [React Element or not](#react-element-or-not) section for examples.
 
 
 ## How to use
 Right now, you may just copy `xjsx.js` into your [React](https://react.dev/) project to test it.
 
 ### How to import
-You may import `tagFactory` to get the [xjsx](https://github.com/c4ffein/xjsx) builder for any HTML tag you want, or the short `_` for `div`.
+You may import `elementFactory` to get the [xjsx](https://github.com/c4ffein/xjsx) builder for any HTML tag you want, or the short `_` for `div`.
 ```JavaScript
-import { tagFactory, _ } from '/xjsx.js'
-const { a, div, span } = tagFactory;
+import { elementFactory, _ } from '/xjsx.js'
+const { a, div, span } = elementFactory;
 ```
 
+### How to use [React Elements](https://react.dev/reference/react/isValidElement)
+You may also use `elementFactory` to convert [React Elements](https://react.dev/reference/react/isValidElement) to [xjsx](https://github.com/c4ffein/xjsx) elements.
+
+```JavaScript
+import CodeRE from './Code';
+const { a, button, img, h3, Code } = elementFactory({ Code: CodeRE });
+```
+
+And use those as any other [xjsx](https://github.com/c4ffein/xjsx) elements.
+```JavaScript
+_flex(
+  Code({ jsCode: codeStringA }),
+  Code({ jsCode: codeStringB }),
+);
+```
 ### Make it work with [Tailwind CSS](https://tailwindcss.com)
 First, ensure that [Tailwind CSS has been set up](https://tailwindcss.com/docs/guides/vite).  
 Then, in `tailwind.config.js`:
@@ -125,7 +140,7 @@ Numbers will be preceded by a `-`, unless the previous char is already a number,
 You may mix [xjsx](https://github.com/c4ffein/xjsx) [Proxy tricks](#tricks) and regular `className` usage, e.g.
 ```JavaScript
 const App = () => _.hFull.flex.itemsCenter({ className: 'w-screen' })(
-  _.w1$2(JSX()), _.w1$2(XJSX())
+  _.w1$2(JSX), _.w1$2(XJSX)
 );
 ```
 You may also use regular [Tailwind](https://tailwindcss.com) classes in your own CSS, regular [PostCSS](https://postcss.org) treatment isn't broken.
@@ -147,7 +162,7 @@ This may seem uncomfortable at first, but the thing is that all this is pure Jav
 
 #### Error diagnosis
 - `Warning: Functions are not valid as a React child. This may happen if you return a Component instead of <Component /> from render. Or maybe you meant to call this function rather than return it.`: You probably forgot to make a final call.
-- `TypeError: Component({ ...xxx }) is not a function. (In 'Component({ ...xxx })()', 'Component({ ...xxx })' is an instance of Object)`: This is probably the opposite, you tried to treat a [React Element](https://react.dev/reference/react/isValidElement) as a [xjsx](https://github.com/c4ffein/xjsx) [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy). Just use `Component({ ...xxx })` instead. [You can still pass children through props if needed](https://react.dev/learn/passing-props-to-a-component#passing-jsx-as-children).
+- `TypeError: Component({ ...xxx }) is not a function. (In 'Component({ ...xxx })()', 'Component({ ...xxx })' is an instance of Object)`: This is probably the opposite, you tried to treat a [React Element](https://react.dev/reference/react/isValidElement) as a [xjsx](https://github.com/c4ffein/xjsx) [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy). See [How to use React Elements](#how-to-use-react-elements)
 
 ## Compatibility
 The good thing is that there are no dependencies besides [React](https://react.dev/).  
