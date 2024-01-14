@@ -78,7 +78,7 @@ export default function XJSX() {
   - If the argument is an object that is neither an [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) or a [React Element](https://react.dev/reference/react/isValidElement), we consider that this object represents HTML attributes, and so you can use it to set `href`, `onclick` and so on, and a new [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) will be returned.
   - Anything else will return the calling of [React](https://react.dev/) [createElement](https://react.dev/reference/react/createElement) with the adequate `props` (from the [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) chain) and the arguments as `...children`.
     - From the [documentation](https://react.dev/reference/react/createElement#parameters) itself: `Zero or more child nodes. They can be any React nodes, including React elements, strings, numbers, portals, empty nodes (null, undefined, true, and false), and arrays of React nodes.`
-    - If `...children` contains [xjsx](https://github.com/c4ffein/xjsx) elements, those are automatically called to be converted to [React Elements](https://react.dev/reference/react/isValidElement).
+    - If `...children` contains [xjsx](https://github.com/c4ffein/xjsx) [Proxies](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy), those are automatically called to be converted to [React Elements](https://react.dev/reference/react/isValidElement).
   - See the [How to use React Elements](#how-to-use-react-elements) section for more info and the [React Element or not](#react-element-or-not) section for examples.
 
 
@@ -93,14 +93,14 @@ const { a, div, span } = elementFactory;
 ```
 
 ### How to use [React Elements](https://react.dev/reference/react/isValidElement)
-You may also use `elementFactory` to convert [React Elements](https://react.dev/reference/react/isValidElement) to [xjsx](https://github.com/c4ffein/xjsx) elements.
+You may also use `elementFactory` to convert [React Elements](https://react.dev/reference/react/isValidElement) to [xjsx](https://github.com/c4ffein/xjsx) [Proxies](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy).
 
 ```JavaScript
 import CodeRE from './Code';
 const { a, button, Code } = elementFactory({ Code: CodeRE });
 ```
 
-And use those as any other [xjsx](https://github.com/c4ffein/xjsx) elements.
+And use those as any other [xjsx](https://github.com/c4ffein/xjsx) [Proxies](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy).
 ```JavaScript
 _.flex(
   Code({ jsCode: codeStringA }),
@@ -163,9 +163,11 @@ Otherwise they are [xjsx](https://github.com/c4ffein/xjsx) [Proxy objects](https
   
 This may seem uncomfortable at first, but the thing is that all this is pure JavaScript and feels kinda like [pug](https://pugjs.org). But where you would still be able to use [map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map), [IIFE](https://developer.mozilla.org/en-US/docs/Glossary/IIFE) with [Arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions), and everything else (not that you should).
 
+As [xjsx](https://github.com/c4ffein/xjsx) [Proxies](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) are automatically called when passed as children of another [xjsx](https://github.com/c4ffein/xjsx) [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy), this usually doesn't make a difference, except when defining a [React Element](https://react.dev/reference/react/isValidElement) : in that case, be sure that you are not returning an [xjsx](https://github.com/c4ffein/xjsx) [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) instead.
+
 #### Error diagnosis
-- `Warning: Functions are not valid as a React child. This may happen if you return a Component instead of <Component /> from render. Or maybe you meant to call this function rather than return it.`: You probably forgot to make a final call.
-- `TypeError: Component({ ...xxx }) is not a function. (In 'Component({ ...xxx })()', 'Component({ ...xxx })' is an instance of Object)`: This is probably the opposite, you tried to treat a [React Element](https://react.dev/reference/react/isValidElement) as a [xjsx](https://github.com/c4ffein/xjsx) [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy). See [How to use React Elements](#how-to-use-react-elements)
+- `Warning: Functions are not valid as a React child. This may happen if you return a Component instead of <Component /> from render. Or maybe you meant to call this function rather than return it.`: You probably forgot to make a final call on the [xjsx](https://github.com/c4ffein/xjsx) [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) when trying to define a [React Element](https://react.dev/reference/react/isValidElement).
+- `TypeError: Component({ ...xxx }) is not a function. (In 'Component({ ...xxx })()', 'Component({ ...xxx })' is an instance of Object)`: This is probably the opposite, you tried to treat a [React Element](https://react.dev/reference/react/isValidElement) as a [xjsx](https://github.com/c4ffein/xjsx) [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy). See [How to use React Elements](#how-to-use-react-elements).
 
 ## Compatibility
 The good thing is that there are no dependencies besides [React](https://react.dev/).  
