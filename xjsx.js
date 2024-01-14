@@ -21,34 +21,30 @@ const toTailwind = (className) => {
 const tailwindExtract = (content) =>
   content.split(/[^a-zA-Z0-9$\-:_]/).reduce((acc, curr) => [...acc, curr, toTailwind(curr)], []);
 
-class Callable extends Function {
-  constructor(tag, classes, attributes) {
-    super();
-    this.tag = tag ?? 'div';
-    this.classes = classes ?? [];
-    this.attributes = attributes ?? {};
-    return new Proxy(this, {
-      apply: (target, _, args) => target._call(...args),
-      get: (target, prop) => new Callable(this.tag, [...this.classes, prop], this.attributes),
-    });
-  }
-  _call(...args) {
-    return typeof args[0] === 'object' && !Array.isArray(args[0]) && !isValidElement(args[0])
-      ? new Callable(this.tag, [...this.classes], { ...this.attributes, ...args[0] })
-      : createElement(
-          this.tag,
-          {
-            ...this.attributes,
-            className: this.attributes.className
-              ? `${this.classes.map(toTailwind).join(' ')} ${this.attributes.className}`
-              : this.classes.map(toTailwind).join(' '),
-          },
-          ...args,
-        );
-  }
-}
+const XjsxChain = (element, classes, attributes) =>
+  new Proxy(XjsxChain, {
+    apply: (target, _, args) =>
+      typeof args[0] === 'object' && !Array.isArray(args[0]) && !isValidElement(args[0])
+        ? XjsxChain(element, classes, { ...attributes, ...args[0] })
+        : createElement(
+            element,
+            {
+              ...attributes,
+              className: attributes.className
+                ? `${classes.map(toTailwind).join(' ')} ${attributes.className}`
+                : classes.map(toTailwind).join(' '),
+            },
+            ...args.map((element) => (element?.isXjsx ? element() : element)),
+          ),
+    get: (_, prop) => (prop === 'isXjsx' ? true : XjsxChain(element, [...classes, prop], attributes)),
+  });
+const _ = XjsxChain('div', [], {});
 
-const _ = new Callable();
-const tagFactory = new Proxy({}, { get: (_, name) => new Callable(name) });
+const Maker = (elements) =>
+  new Proxy(Maker, {
+    apply: (target, _, args) => Maker({ ...elements, ...args[0] }),
+    get: (_, name) => XjsxChain(elements[name] ?? name, [], {}),
+  });
+const elementFactory = Maker({});
 
-export { toTailwind, tailwindExtract, _, tagFactory };
+export { toTailwind, tailwindExtract, _, elementFactory };
