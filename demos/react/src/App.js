@@ -1,13 +1,17 @@
 import { useState, createRef } from 'react';
 
-import { _, tagFactory } from '../libs/xjsx';
-import JSX from './JSX.jsx';
-import XJSX from './XJSX.js';
-import SplitCode from './SplitCode';
+import { _, elementFactory } from '../libs/xjsx';
+import PageTitleRE from './PageTitle.js';
+import JSXRE from './JSX.jsx';
+import XJSXRE from './XJSX.js';
+import SplitCodeRE from './SplitCode';
 
-import PageTitle from './PageTitle.js';
-
-const { a, button } = tagFactory;
+const { a, button, PageTitle, JSX, XJSX, SplitCode } = elementFactory({
+  PageTitle: PageTitleRE,
+  JSX: JSXRE,
+  XJSX: XJSXRE,
+  SplitCode: SplitCodeRE,
+});
 
 export default () => {
   const [codeShown, setCodeShown] = useState(false);
@@ -21,15 +25,15 @@ export default () => {
       : null;
 
   return _.minHFull.flex.flexCol.justifyAround(
-    PageTitle(),
-    _.flex.itemsCenter(_.w1$2(JSX()), _.w1$2(XJSX())),
+    PageTitle,
+    _.flex.itemsCenter(_.w1$2(JSX), _.w1$2(XJSX)),
     _.flex.gap8.justifyCenter(
       a.mb8.customButton({ href: 'https://github.com/c4ffein/xjsx' })`Read the doc`,
       button.mb8.customButton({ onClick: () => setCodeShown(!codeShown) })`Show demo code`,
     ),
     _.fixed.inset0.hFull.transitionOpacity({ className: codeShown ? '' : 'pointer-events-none opacity-0' })(
-      _.absolute.inset0.bgWhite.dark$bgGithub.opacity30({ onClick: () => setCodeShown(false) })(),
-      _.absolute.inset0.backdropBlur({ onClick: () => setCodeShown(false) })(),
+      _.absolute.inset0.bgWhite.dark$bgGithub.opacity30({ onClick: () => setCodeShown(false) }),
+      _.absolute.inset0.backdropBlur({ onClick: () => setCodeShown(false) }),
       _.z20.absolute.inset0(
         _.wFull.hFull.overflowScroll({ ref: splitCodeContainerRef })(
           SplitCode({ moveToXjsx }),

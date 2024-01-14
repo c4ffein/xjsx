@@ -1,12 +1,12 @@
-import { _, tagFactory } from '../libs/xjsx';
+import { _, elementFactory } from '../libs/xjsx';
 import JSXCode from './assets/JSXCode.js';
 import XJSXCode from './assets/XJSXCode.js';
-import Code from './Code';
+import CodeRE from './Code';
 
 import reactLogo from './assets/logo-react.svg';
 import xjsxLogo from './assets/logo-xjsx.svg';
 
-const { a, button, img, h3 } = tagFactory;
+const { a, button, img, h3, Code } = elementFactory({ Code: CodeRE });
 
 const SplitCode = ({ moveToXjsx }) =>
   _.flex(
@@ -16,7 +16,7 @@ const SplitCode = ({ moveToXjsx }) =>
           href: 'https://react.dev/learn/writing-markup-with-jsx',
           target: '_blank',
           rel: 'noreferrer',
-        })(img.h8.w8({ src: reactLogo, alt: 'React logo' })(), h3.textLg.fontBold`JSX demo code`),
+        })(img.h8.w8({ src: reactLogo, alt: 'React logo' }), h3.textLg.fontBold`JSX demo code`),
         button.customButton({ onClick: moveToXjsx })`See xjsx code`,
       ),
       Code({ jsCode: JSXCode }),
@@ -27,7 +27,7 @@ const SplitCode = ({ moveToXjsx }) =>
           href: 'https://github.com/c4ffein/xjsx',
           target: '_blank',
           rel: 'noreferrer',
-        })(img.h8.w8({ src: xjsxLogo, alt: 'xjsx logo' })(), h3.textLg.fontBold`xjsx demo code`),
+        })(img.h8.w8({ src: xjsxLogo, alt: 'xjsx logo' }), h3.textLg.fontBold`xjsx demo code`),
       ),
       Code({ jsCode: XJSXCode }),
     ),

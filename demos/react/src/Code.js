@@ -1,13 +1,13 @@
-import { tagFactory } from '../libs/xjsx';
+import { elementFactory } from '../libs/xjsx';
 
-const { code, pre } = tagFactory;
+const { code, pre } = elementFactory;
 
 window.Prism = window.Prism || {};
 window.Prism.manual = true;
 import '../libs/prism';
 const Prism = window.Prism;
 
-export default function Code({ jsCode }) {
+export default ({ jsCode }) => {
   const highlightedCode = Prism.highlight(jsCode ?? '', Prism.languages.jsx, 'jsx');
-  return pre(code.fontMono({ dangerouslySetInnerHTML: { __html: highlightedCode } })());
-}
+  return pre(code.fontMono({ dangerouslySetInnerHTML: { __html: highlightedCode } }));
+};
