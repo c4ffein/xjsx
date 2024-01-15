@@ -56,7 +56,8 @@ export default function XJSX() {
 }
 ```
 
-*See live at [xjsx.dev](https://xjsx.dev)*
+- *See live at [xjsx.dev](https://xjsx.dev)*
+- *The whole demo code is available [here](https://github.com/c4ffein/xjsx/tree/main/demos/react)*
 
 ## Opinionated
 - [JSX](https://react.dev/learn/writing-markup-with-jsx) is very nice to put logic in your [React](https://react.dev/) (conditionals, list rendering...) as you can directly use JavaScript for it.
