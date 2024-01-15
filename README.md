@@ -84,7 +84,7 @@ export default function XJSX() {
 
 ## How to use
 - Available on [npm](https://npmjs.com/package/xjsx-react) as [`xjsx-react`](https://npmjs.com/package/xjsx-react).  
-  ![[NPM Version](https://npmjs.com/package/xjsx-react)](https://img.shields.io/npm/v/xjsx-react?style=flat&color=%2361dafb)
+  [![NPM Version](https://img.shields.io/npm/v/xjsx-react?style=flat&color=%2361dafb)](https://npmjs.com/package/xjsx-react)
 - You may still just copy [`xjsx.js`](https://raw.githubusercontent.com/c4ffein/xjsx/main/frameworks/react/index.js) into your [React](https://react.dev/) project.
 
 ### How to import
