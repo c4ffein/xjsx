@@ -131,6 +131,8 @@ This has to be done as:
 
 So, through `tailwindExtract`, we just use a regex to split what could be JavaScript identifiers, and apply the same transformation into what could be a [Tailwind](https://tailwindcss.com) class to re-expose it to [PostCSS](https://postcss.org), so it is included if it matches a [Tailwind](https://tailwindcss.com) class.
 
+#### Alternative: use [Twind](https://twind.style)
+You may directly use [Twind](https://twind.style) instead as this is [Tailwind](https://tailwindcss.com) in JavaScript solution, and so no additional setup is required to make it work with [xjsx](https://github.com/c4ffein/xjsx).
 
 ## Tricks
 ### CSS class names
