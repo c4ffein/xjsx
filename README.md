@@ -36,7 +36,7 @@ export default function JSX() {
 ```JavaScript
 import { useState } from 'react';
 import xjsxLogo from './assets/logo-xjsx.svg';
-import { _, elementFactory } from '../xjsx';
+import { _, elementFactory } from '../libs/xjsx';
 
 const { a, img, h1, span, button, p } = elementFactory;
 
@@ -90,7 +90,7 @@ export default function XJSX() {
 ### How to import
 You may import `elementFactory` to get the [xjsx](https://github.com/c4ffein/xjsx) builder for any HTML tag you want, or the short `_` for `div`.
 ```JavaScript
-import { elementFactory, _ } from '/xjsx.js'
+import { elementFactory, _ } from 'xjsx-react'
 const { a, div, span } = elementFactory;
 ```
 
@@ -113,7 +113,7 @@ _.flex(
 First, ensure that [Tailwind CSS has been set up](https://tailwindcss.com/docs/guides/vite).  
 Then, in `tailwind.config.js`:
 ```JavaScript
-import { tailwindExtract } from './xjsx'
+import { tailwindExtract } from './libs/xjsx'
 
 export default {
   content: {
