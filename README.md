@@ -83,7 +83,8 @@ export default function XJSX() {
 
 
 ## How to use
-Right now, you may just copy `xjsx.js` into your [React](https://react.dev/) project to test it.
+- Available on [npm](https://npmjs.com) ![NPM Version](https://img.shields.io/npm/v/xjsx-react?style=flat&color=2361dafb)
+- You may still just copy [`xjsx.js`](https://raw.githubusercontent.com/c4ffein/xjsx/main/frameworks/react/index.js) into your [React](https://react.dev/) project.
 
 ### How to import
 You may import `elementFactory` to get the [xjsx](https://github.com/c4ffein/xjsx) builder for any HTML tag you want, or the short `_` for `div`.
