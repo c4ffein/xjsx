@@ -1,7 +1,7 @@
 {
   "name": "xjsx-react",
-  "version": "0.0.0",
-  "description": "Coming Soon (I guess)",
+  "version": "0.0.1",
+  "description": "A new way to generate React elements without jsx, inspired by pug syntax, compatible with Tailwind CSS, actually pure JavaScript.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
