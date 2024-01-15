@@ -43,6 +43,11 @@ const toTailwind = (className) => {
 const tailwindExtract = (content) =>
   content.split(/[^a-zA-Z0-9$\-:_]/).reduce((acc, curr) => [...acc, curr, toTailwind(curr)], []);
 
+const purifyElements = (...elements) =>
+  elements.map((element) =>
+    Array.isArray(element) ? purifyElements(...element) : element?.isXjsx ? element() : element,
+  );
+
 const XjsxChain = (element, classes, attributes) =>
   new Proxy(XjsxChain, {
     apply: (target, _, args) =>
@@ -56,7 +61,7 @@ const XjsxChain = (element, classes, attributes) =>
                 ? `${classes.map(toTailwind).join(' ')} ${attributes.className}`
                 : classes.map(toTailwind).join(' '),
             },
-            ...args.map((element) => (element?.isXjsx ? element() : element)),
+            ...purifyElements(...args),
           ),
     get: (_, prop) => (prop === 'isXjsx' ? true : XjsxChain(element, [...classes, prop], attributes)),
   });
