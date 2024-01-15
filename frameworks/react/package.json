@@ -1,6 +1,6 @@
 {
   "name": "xjsx-react",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A new way to generate React elements without jsx, inspired by pug syntax, compatible with Tailwind CSS, actually pure JavaScript.",
   "main": "index.js",
   "scripts": {
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/c4ffein/xjsx/issues"
   },
-  "homepage": "https://github.com/c4ffein/xjsx#readme"
+  "homepage": "https://github.com/c4ffein/xjsx#readme",
+  "dependencies": {
+    "react": "*"
+  }
 }
