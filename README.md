@@ -66,7 +66,7 @@ export default function XJSX() {
 
 
 ## How does it actually work
-- Pure JavaScript, so it won't introduce weird complexity in your build system (as most things shouldn't).
+- [Pure JavaScript](https://raw.githubusercontent.com/c4ffein/xjsx/main/frameworks/react/index.js), so it won't introduce weird complexity in your build system (as most things shouldn't).
 - Voodoo logic with [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) objects, so that you can chain CSS classes that will automatically be added to the [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) CSS classes one after another, and will generate a [React element](https://react.dev/reference/react/createElement) in the end.
 ### In detail
 - `_` and any variable you can get from the `elementFactory` are [Proxies](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy).
